@@ -33,7 +33,7 @@ Clone the repository:
 
 Bash
 
-git clone https://github.com/Avdheshprajapati/prime-stay.git
+git clone https://github.com/Avdheshprajapati/Anudip-domain-project.git
 Navigate to the project directory:
 
 Bash
