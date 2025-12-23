@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Prime Stay | Luxury Eco Lodge</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                    },
+                    colors: {
+                        'eco-dark': '#1a2e22',
+                        'eco-green': '#2c4c3b',
+                        'eco-light': '#e6ece9',
+                        'eco-sand': '#d8d0c5',
+                        'eco-accent': '#c7a17a',
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2049&q=80')",
+                        'spa-pattern': "url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80')",
+                        'rooms-hero': "linear-gradient(to bottom, rgba(26, 46, 34, 0.6), rgba(26, 46, 34, 0.8)), url('https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80')",
+                        'contact-hero': "linear-gradient(to bottom, rgba(26, 46, 34, 0.6), rgba(26, 46, 34, 0.8)), url('https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')",
+                        'auth-hero': "linear-gradient(to bottom, rgba(26, 46, 34, 0.7), rgba(26, 46, 34, 0.8)), url('https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1527&q=80')",
+                        'menu-hero': "linear-gradient(to bottom, rgba(26, 46, 34, 0.5), rgba(26, 46, 34, 0.7)), url('https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80')",
+                        'spa-hero': "linear-gradient(to bottom, rgba(26, 46, 34, 0.5), rgba(26, 46, 34, 0.7)), url('https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')",
+                        'adventure-hero': "linear-gradient(to bottom, rgba(26, 46, 34, 0.5), rgba(26, 46, 34, 0.7)), url('https://images.unsplash.com/photo-1533240332313-0db49b459ad6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1a2e22; }
+        ::-webkit-scrollbar-thumb { background: #2c4c3b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c7a17a; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .image-hover-zoom { transition: transform 0.7s ease; }
+        .group:hover .image-hover-zoom { transform: scale(1.05); }
+        
+        .page-transition { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .toggle-checkbox:checked { right: 0; border-color: #2c4c3b; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #2c4c3b; }
+        
+        /* Mobile Improvements */
+        input, select, textarea, button { font-size: 16px !important; }
+        .mobile-touch-target { min-height: 48px; }
+        
+        /* Icon Input Wrapper */
+        .icon-input-wrapper {
+            @apply flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors;
+        }
+        .input-icon {
+            @apply w-5 h-5 text-gray-400 mr-3 shrink-0;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-eco-light antialiased overflow-x-hidden selection:bg-eco-green selection:text-white flex flex-col min-h-screen">
+
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 text-white py-6 border-b border-white/10">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" onclick="switchPage('home'); return false;" class="font-serif text-3xl italic tracking-wider z-50 relative cursor-pointer flex items-center gap-2">
+                <i data-lucide="palmtree" class="w-8 h-8 text-eco-accent"></i> Prime Stay.
+            </a>
+            
+            <div class="hidden lg:flex items-center space-x-10 font-light tracking-widest text-sm uppercase">
+                <a href="#philosophy" onclick="switchPage('home')" class="hover:text-eco-accent transition-colors cursor-pointer flex items-center gap-2"><i data-lucide="flower-2" class="w-4 h-4"></i> Philosophy</a>
+                <button onclick="switchPage('rooms')" class="hover:text-eco-accent transition-colors uppercase tracking-widest text-sm flex items-center gap-2"><i data-lucide="bed-double" class="w-4 h-4"></i> Suites</button>
+                <a href="#experiences" onclick="switchPage('home')" class="hover:text-eco-accent transition-colors cursor-pointer flex items-center gap-2"><i data-lucide="compass" class="w-4 h-4"></i> Experiences</a>
+                <button onclick="switchPage('contact')" class="hover:text-eco-accent transition-colors uppercase tracking-widest text-sm flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> Contact</button>
+                
+                <button id="nav-auth-btn" onclick="handleAuthButtonClick()" class="hover:text-eco-accent transition-colors uppercase tracking-widest text-sm font-bold flex items-center gap-2">
+                    <i data-lucide="user" class="w-4 h-4"></i> <span id="nav-auth-text">Log In</span>
+                </button>
+
+                <a href="#booking" onclick="switchPage('home')" class="px-8 py-3 bg-white/10 backdrop-blur-md border border-white/30 hover:bg-eco-accent hover:border-eco-accent hover:text-white transition-all duration-300 cursor-pointer flex items-center gap-2">
+                    <i data-lucide="calendar-check" class="w-4 h-4"></i> Book Stay
+                </a>
+            </div>
+
+            <button id="mobile-menu-btn" class="lg:hidden z-50 text-white focus:outline-none p-2">
+                <i data-lucide="menu" class="w-8 h-8"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="fixed inset-0 bg-eco-dark transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col items-center justify-center space-y-8 z-40 lg:hidden">
+            <a href="#" onclick="switchPage('home'); return false;" class="mobile-nav-link text-2xl font-serif italic text-eco-sand flex items-center gap-3"><i data-lucide="home" class="w-6 h-6"></i> Home</a>
+            <a href="#" onclick="switchPage('rooms'); return false;" class="mobile-nav-link text-2xl font-serif italic text-eco-sand flex items-center gap-3"><i data-lucide="bed-double" class="w-6 h-6"></i> Suites & Rates</a>
+            <a href="#" onclick="switchPage('menu'); return false;" class="mobile-nav-link text-2xl font-serif italic text-eco-sand flex items-center gap-3"><i data-lucide="utensils" class="w-6 h-6"></i> Dining</a>
+            <a href="#" onclick="switchPage('spa'); return false;" class="mobile-nav-link text-2xl font-serif italic text-eco-sand flex items-center gap-3"><i data-lucide="flower" class="w-6 h-6"></i> Wellness</a>
+            <a href="#" onclick="switchPage('adventure'); return false;" class="mobile-nav-link text-2xl font-serif italic text-eco-sand flex items-center gap-3"><i data-lucide="mountain" class="w-6 h-6"></i> Adventures</a>
+            <a href="#" onclick="switchPage('contact'); return false;" class="mobile-nav-link text-2xl font-serif italic text-eco-sand flex items-center gap-3"><i data-lucide="phone" class="w-6 h-6"></i> Contact</a>
+            <a href="#" onclick="handleAuthButtonClick(); return false;" class="mobile-nav-link text-2xl font-serif italic text-eco-sand flex items-center gap-3"><i data-lucide="user" class="w-6 h-6"></i> Account</a>
+            <a href="#booking" onclick="switchPage('home')" class="mobile-nav-link px-8 py-3 border border-eco-accent text-eco-accent flex items-center gap-3"><i data-lucide="calendar-check" class="w-6 h-6"></i> Book Now</a>
+        </div>
+    </nav>
+
+    <main id="view-home" class="page-transition">
+        <header class="relative h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-fixed bg-no-repeat">
+            <div class="absolute inset-0 bg-black/30"></div>
+            <div class="relative z-10 text-center text-white px-4">
+                <p class="text-sm md:text-base tracking-[0.3em] uppercase mb-4 opacity-0 animate-fade-in-up flex items-center justify-center gap-2" style="animation-delay: 0.2s; animation-fill-mode: forwards;"><i data-lucide="leaf" class="w-4 h-4"></i> Reconnect with Nature</p>
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl mb-8 opacity-0 animate-fade-in-up" style="animation-delay: 0.4s; animation-fill-mode: forwards;">Luxury Unspoiled.</h1>
+                <div class="opacity-0 animate-fade-in-up" style="animation-delay: 0.6s; animation-fill-mode: forwards;">
+                    <a href="#booking" class="group inline-flex items-center gap-2 border-b border-white pb-1 hover:text-eco-accent hover:border-eco-accent transition-colors duration-300">
+                        <span class="tracking-widest uppercase text-sm">Begin Your Journey</span>
+                        <i data-lucide="arrow-down" class="w-4 h-4 group-hover:translate-y-1 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-white/70">
+                <i data-lucide="chevron-down" class="w-8 h-8"></i>
+            </div>
+        </header>
+
+        <section id="accommodations" class="py-24 bg-eco-dark text-white px-6">
+            <div class="container mx-auto">
+                <div class="text-center mb-16 reveal">
+                    <span class="text-eco-accent tracking-widest text-xs uppercase font-bold mb-4 block flex items-center justify-center gap-2"><i data-lucide="home" class="w-4 h-4"></i> Accommodations</span>
+                    <h2 class="font-serif text-4xl md:text-6xl mb-4">Sanctuaries of Rest</h2>
+                    <div class="w-24 h-px bg-white/20 mx-auto mt-8"></div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-0 mb-12 reveal group cursor-pointer" onclick="switchPage('rooms')">
+                    <div class="overflow-hidden h-[400px] md:h-[500px] relative">
+                        <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Treehouse Suite" class="w-full h-full object-cover image-hover-zoom">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500"></div>
+                    </div>
+                    <div class="bg-[#233d2e] p-10 md:p-16 flex flex-col justify-center transition-colors duration-300 group-hover:bg-[#2a4736]">
+                        <span class="text-eco-accent text-sm uppercase tracking-widest mb-2 flex items-center gap-2"><i data-lucide="star" class="w-3 h-3"></i> Signature</span>
+                        <h3 class="font-serif text-3xl md:text-4xl mb-4">The Canopy Villa</h3>
+                        <p class="text-gray-300 mb-8 leading-relaxed">Elevated 30 feet into the ancient trees, offering panoramic views of the jungle canopy.</p>
+                        <span class="inline-block text-white border-b border-white/30 pb-1 self-start hover:border-white transition-all flex items-center gap-2">View All Rooms <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experiences" class="py-24 bg-eco-sand/30 px-6">
+            <div class="container mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12 reveal">
+                    <div>
+                        <span class="text-eco-green tracking-widest text-xs uppercase font-bold mb-4 block flex items-center gap-2"><i data-lucide="compass" class="w-4 h-4"></i> Immersive Experiences</span>
+                        <h2 class="font-serif text-4xl md:text-5xl text-eco-dark">Curated for the Soul</h2>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div id="wellness" class="group reveal delay-100 bg-white shadow-lg overflow-hidden cursor-pointer" onclick="switchPage('spa')">
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Spa">
+                            <div class="absolute top-4 right-4 bg-white/90 px-3 py-1 text-xs uppercase tracking-widest font-bold flex items-center gap-1"><i data-lucide="flower" class="w-3 h-3"></i> Wellness</div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="font-serif text-2xl mb-3 text-eco-dark">Forest Spa</h3>
+                            <span class="text-eco-green uppercase text-xs font-bold tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">Explore <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                        </div>
+                    </div>
+
+                    <div id="dining" class="group reveal delay-200 bg-white shadow-lg overflow-hidden cursor-pointer" onclick="switchPage('menu')">
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Dining">
+                            <div class="absolute top-4 right-4 bg-white/90 px-3 py-1 text-xs uppercase tracking-widest font-bold flex items-center gap-1"><i data-lucide="utensils" class="w-3 h-3"></i> Culinary</div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="font-serif text-2xl mb-3 text-eco-dark">Farm to Table</h3>
+                            <span class="text-eco-green uppercase text-xs font-bold tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">View Menu <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                        </div>
+                    </div>
+
+                    <div id="adventure" class="group reveal delay-300 bg-white shadow-lg overflow-hidden cursor-pointer" onclick="switchPage('adventure')">
+                        <div class="h-64 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Adventure">
+                            <div class="absolute top-4 right-4 bg-white/90 px-3 py-1 text-xs uppercase tracking-widest font-bold flex items-center gap-1"><i data-lucide="mountain" class="w-3 h-3"></i> Adventure</div>
+                        </div>
+                        <div class="p-8">
+                            <h3 class="font-serif text-2xl mb-3 text-eco-dark">Guided Treks</h3>
+                            <span class="text-eco-green uppercase text-xs font-bold tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all">Discover <i data-lucide="arrow-right" class="w-4 h-4"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="booking" class="py-24 bg-eco-dark relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-1/3 h-full bg-white/5 skew-x-12 transform translate-x-20"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 shadow-2xl rounded-sm reveal">
+                    <div class="text-center mb-10">
+                        <span class="text-eco-green tracking-widest text-xs uppercase font-bold flex items-center justify-center gap-2"><i data-lucide="plane" class="w-4 h-4"></i> Plan Your Escape</span>
+                        <h2 class="font-serif text-4xl text-eco-dark mt-2">Reserve Your Sanctuary</h2>
+                    </div>
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-xs uppercase tracking-widest text-gray-500 font-bold">Check In</label>
+                                <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                                    <i data-lucide="calendar" class="w-5 h-5 text-gray-400 mr-3"></i>
+                                    <input type="date" id="check-in" class="w-full outline-none bg-transparent mobile-touch-target">
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs uppercase tracking-widest text-gray-500 font-bold">Check Out</label>
+                                <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                                    <i data-lucide="calendar" class="w-5 h-5 text-gray-400 mr-3"></i>
+                                    <input type="date" id="check-out" class="w-full outline-none bg-transparent mobile-touch-target">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="text-xs uppercase tracking-widest text-gray-500 font-bold">Guests</label>
+                                <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                                    <i data-lucide="users" class="w-5 h-5 text-gray-400 mr-3"></i>
+                                    <select id="guests" class="w-full outline-none bg-transparent mobile-touch-target">
+                                        <option>1 Guest</option>
+                                        <option selected>2 Guests</option>
+                                        <option>3 Guests</option>
+                                        <option>4 Guests</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-xs uppercase tracking-widest text-gray-500 font-bold">Accommodation</label>
+                                <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                                    <i data-lucide="home" class="w-5 h-5 text-gray-400 mr-3"></i>
+                                    <select id="room-type" class="w-full outline-none bg-transparent mobile-touch-target">
+                                        <option>Canopy Villa</option>
+                                        <option>Riverfront Bungalow</option>
+                                        <option>Forest Cabin</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" onclick="checkAvailability()" class="w-full bg-eco-green text-white font-serif italic text-xl py-4 hover:bg-eco-dark transition-all duration-300 shadow-lg mt-8 flex justify-center items-center gap-2 group mobile-touch-target">
+                            Check Availability
+                            <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <main id="view-rooms" class="hidden page-transition pt-20 bg-eco-light">
+        <div class="h-[60vh] bg-rooms-hero bg-cover bg-center relative flex items-center justify-center">
+            <div class="text-center text-white px-4">
+                <span class="block text-eco-accent uppercase tracking-[0.3em] text-sm mb-4 flex items-center justify-center gap-2"><i data-lucide="star" class="w-4 h-4"></i> Our Collections</span>
+                <h1 class="font-serif text-5xl md:text-7xl mb-6">Suites & Villas</h1>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 py-24">
+            <div class="bg-white shadow-xl rounded-sm overflow-hidden mb-20 flex flex-col lg:flex-row reveal">
+                <div class="lg:w-1/2 h-96 lg:h-auto relative">
+                    <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" class="w-full h-full object-cover">
+                </div>
+                <div class="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center">
+                    <div class="flex justify-between items-start mb-4">
+                        <h2 class="font-serif text-4xl text-eco-dark">The Canopy Villa</h2>
+                        <div class="text-right">
+                            <p class="text-2xl font-serif text-eco-green">₹62,000</p>
+                            <p class="text-xs text-gray-400 uppercase tracking-widest">Per Night</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-8 leading-relaxed font-light">Elevated 30 feet into the ancient trees...</p>
+                    <button onclick="switchPage('home'); document.getElementById('booking').scrollIntoView();" class="w-full sm:w-auto bg-eco-dark text-white px-8 py-3 uppercase tracking-widest text-xs font-bold hover:bg-eco-green transition-colors mobile-touch-target flex items-center justify-center gap-2"><i data-lucide="calendar-plus" class="w-4 h-4"></i> Book This Villa</button>
+                </div>
+            </div>
+            <div class="bg-white shadow-xl rounded-sm overflow-hidden mb-20 flex flex-col lg:flex-row-reverse reveal">
+                <div class="lg:w-1/2 h-96 lg:h-auto relative">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" class="w-full h-full object-cover">
+                </div>
+                <div class="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center">
+                    <div class="flex justify-between items-start mb-4">
+                        <h2 class="font-serif text-4xl text-eco-dark">Riverfront Bungalow</h2>
+                        <div class="text-right">
+                            <p class="text-2xl font-serif text-eco-green">₹48,000</p>
+                            <p class="text-xs text-gray-400 uppercase tracking-widest">Per Night</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-8 leading-relaxed font-light">Set directly on the banks of the winding crystal river...</p>
+                    <button onclick="switchPage('home'); document.getElementById('booking').scrollIntoView();" class="w-full sm:w-auto bg-eco-dark text-white px-8 py-3 uppercase tracking-widest text-xs font-bold hover:bg-eco-green transition-colors mobile-touch-target flex items-center justify-center gap-2"><i data-lucide="calendar-plus" class="w-4 h-4"></i> Book This Bungalow</button>
+                </div>
+            </div>
+            <div class="bg-white shadow-xl rounded-sm overflow-hidden flex flex-col lg:flex-row reveal">
+                <div class="lg:w-1/2 h-96 lg:h-auto relative">
+                    <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" class="w-full h-full object-cover">
+                </div>
+                <div class="lg:w-1/2 p-10 lg:p-16 flex flex-col justify-center">
+                    <div class="flex justify-between items-start mb-4">
+                        <h2 class="font-serif text-4xl text-eco-dark">Forest Cabin</h2>
+                        <div class="text-right">
+                            <p class="text-2xl font-serif text-eco-green">₹35,000</p>
+                            <p class="text-xs text-gray-400 uppercase tracking-widest">Per Night</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-8 leading-relaxed font-light">A cozy yet luxurious retreat grounded on the forest floor...</p>
+                    <button onclick="switchPage('home'); document.getElementById('booking').scrollIntoView();" class="w-full sm:w-auto bg-eco-dark text-white px-8 py-3 uppercase tracking-widest text-xs font-bold hover:bg-eco-green transition-colors mobile-touch-target flex items-center justify-center gap-2"><i data-lucide="calendar-plus" class="w-4 h-4"></i> Book This Cabin</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main id="view-menu" class="hidden page-transition pt-20 bg-eco-light">
+        <div class="h-[50vh] bg-menu-hero bg-cover bg-center relative flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div class="relative z-10 text-center text-white px-4">
+                <span class="block text-eco-accent uppercase tracking-[0.3em] text-sm mb-4 flex items-center justify-center gap-2"><i data-lucide="utensils" class="w-4 h-4"></i> Taste the Wild</span>
+                <h1 class="font-serif text-5xl md:text-7xl mb-6">Farm to Table</h1>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 py-24 max-w-4xl">
+            <div class="bg-eco-dark text-white p-8 rounded-sm shadow-xl mb-12 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-eco-green/20 rounded-full blur-3xl -mr-16 -mt-16"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-eco-accent rounded-full text-eco-dark">
+                            <i data-lucide="sparkles" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl italic">Chef's Flavor Matchmaker</h3>
+                    </div>
+                    <p class="text-white/80 font-light text-sm mb-6 max-w-lg">
+                        Not sure what to order? Tell us your mood or craving, and our AI Sommelier will curate the perfect pairing.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <div class="flex-1 flex items-center bg-white/10 border border-white/20 px-4 py-3 focus-within:border-eco-accent transition-colors">
+                            <i data-lucide="search" class="w-5 h-5 text-white/50 mr-3"></i>
+                            <input type="text" id="flavor-input" placeholder="How are you feeling today?" class="w-full bg-transparent text-white placeholder-white/40 outline-none mobile-touch-target">
+                        </div>
+                        <button onclick="getFlavorMatch()" class="bg-eco-accent text-eco-dark px-6 py-3 font-bold uppercase text-xs tracking-widest hover:bg-white transition-colors whitespace-nowrap mobile-touch-target flex items-center justify-center gap-2"><i data-lucide="wand-2" class="w-4 h-4"></i> Recommend</button>
+                    </div>
+                    <div id="chef-recommendation" class="mt-6 text-sm font-light leading-relaxed hidden bg-white/5 p-4 border-l-2 border-eco-accent"></div>
+                </div>
+            </div>
+
+            <div class="bg-white p-12 shadow-xl border border-gray-100">
+                <div class="text-center mb-12">
+                    <i data-lucide="chef-hat" class="w-8 h-8 text-eco-green mx-auto mb-4"></i>
+                    <h2 class="font-serif text-3xl text-eco-dark">Seasonal Menu</h2>
+                    <p class="text-gray-500 mt-2 text-sm italic">Ingredients harvested daily from our organic permaculture gardens.</p>
+                </div>
+                
+                <div class="space-y-12">
+                    <div>
+                        <h3 class="text-eco-green uppercase tracking-widest font-bold text-sm border-b border-gray-200 pb-2 mb-6 flex items-center gap-2"><i data-lucide="sunrise" class="w-4 h-4"></i> Morning Harvest</h3>
+                        <div class="space-y-6">
+                            <div class="flex justify-between items-baseline">
+                                <div>
+                                    <h4 class="font-serif text-xl text-eco-dark">Rainforest Acai Bowl</h4>
+                                    <p class="text-gray-500 text-sm font-light">Local berries, house-made granola, wild honey.</p>
+                                </div>
+                                <span class="text-eco-green font-bold">₹850</span>
+                            </div>
+                            <div class="flex justify-between items-baseline">
+                                <div>
+                                    <h4 class="font-serif text-xl text-eco-dark">Avocado & River Trout</h4>
+                                    <p class="text-gray-500 text-sm font-light">Sourdough toast, poached egg, smoked river trout.</p>
+                                </div>
+                                <span class="text-eco-green font-bold">₹1,200</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-eco-green uppercase tracking-widest font-bold text-sm border-b border-gray-200 pb-2 mb-6 flex items-center gap-2"><i data-lucide="utensils-crossed" class="w-4 h-4"></i> Mains</h3>
+                        <div class="space-y-6">
+                            <div class="flex justify-between items-baseline">
+                                <div>
+                                    <h4 class="font-serif text-xl text-eco-dark">Wild Mushroom Risotto</h4>
+                                    <p class="text-gray-500 text-sm font-light">Foraged mushrooms, truffle oil, parmesan crisp.</p>
+                                </div>
+                                <span class="text-eco-green font-bold">₹1,800</span>
+                            </div>
+                            <div class="flex justify-between items-baseline">
+                                <div>
+                                    <h4 class="font-serif text-xl text-eco-dark">Grilled Banana Leaf Fish</h4>
+                                    <p class="text-gray-500 text-sm font-light">Local catch, coconut lime sambal, red rice.</p>
+                                </div>
+                                <span class="text-eco-green font-bold">₹2,200</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main id="view-spa" class="hidden page-transition pt-20 bg-eco-light">
+        <div class="h-[50vh] bg-spa-hero bg-cover bg-center relative flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/30"></div>
+            <div class="relative z-10 text-center text-white px-4">
+                <span class="block text-eco-accent uppercase tracking-[0.3em] text-sm mb-4 flex items-center justify-center gap-2"><i data-lucide="droplet" class="w-4 h-4"></i> Restore Balance</span>
+                <h1 class="font-serif text-5xl md:text-7xl mb-6">Forest Spa</h1>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 py-24 max-w-4xl">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="font-serif text-3xl text-eco-dark mb-6 flex items-center gap-2"><i data-lucide="flower-2" class="w-6 h-6 text-eco-green"></i> Treatments</h2>
+                    <div class="space-y-8">
+                        <div class="border-b border-gray-200 pb-4">
+                            <div class="flex justify-between mb-1">
+                                <h4 class="font-serif text-xl">Deep Tissue Jungle Massage</h4>
+                                <span class="text-eco-green font-bold">₹4,500</span>
+                            </div>
+                            <p class="text-sm text-gray-500 font-light">60 Mins | Targeted pressure to release tension.</p>
+                        </div>
+                        <div class="border-b border-gray-200 pb-4">
+                            <div class="flex justify-between mb-1">
+                                <h4 class="font-serif text-xl">Ayurvedic Head Therapy</h4>
+                                <span class="text-eco-green font-bold">₹3,200</span>
+                            </div>
+                            <p class="text-sm text-gray-500 font-light">45 Mins | Warm oil treatment for mental clarity.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 shadow-lg h-fit">
+                    <h3 class="font-serif text-2xl text-eco-dark mb-4">Book a Session</h3>
+                    <p class="text-gray-500 text-sm mb-6">To maintain tranquility, we recommend booking treatments 24 hours in advance.</p>
+                    <button onclick="toggleChat()" class="w-full bg-eco-dark text-white py-3 uppercase tracking-widest text-xs font-bold hover:bg-eco-green transition-all mobile-touch-target flex items-center justify-center gap-2"><i data-lucide="message-square" class="w-4 h-4"></i> Contact Concierge</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main id="view-adventure" class="hidden page-transition pt-20 bg-eco-light">
+        <div class="h-[50vh] bg-adventure-hero bg-cover bg-center relative flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div class="relative z-10 text-center text-white px-4">
+                <span class="block text-eco-accent uppercase tracking-[0.3em] text-sm mb-4 flex items-center justify-center gap-2"><i data-lucide="compass" class="w-4 h-4"></i> Explore the Wild</span>
+                <h1 class="font-serif text-5xl md:text-7xl mb-6">Guided Treks</h1>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 py-24">
+            <div class="bg-white p-8 md:p-10 shadow-lg border-l-4 border-eco-green mb-16 reveal">
+                <div class="flex flex-col md:flex-row gap-8 items-start">
+                    <div class="md:w-1/3">
+                        <h2 class="font-serif text-3xl text-eco-dark mb-4 flex items-center gap-2"><i data-lucide="map" class="w-6 h-6 text-eco-accent"></i> Curate Your Journey</h2>
+                        <p class="text-gray-500 text-sm font-light">Tell us your stay duration and interests, and our AI Guide will craft a bespoke itinerary.</p>
+                    </div>
+                    <div class="md:w-2/3 w-full">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                            <div class="flex items-center border-b border-gray-300 py-3 focus-within:border-eco-green transition-colors">
+                                <i data-lucide="calendar" class="w-5 h-5 text-gray-400 mr-3"></i>
+                                <input type="number" id="itin-days" placeholder="Days" class="w-full outline-none bg-transparent mobile-touch-target">
+                            </div>
+                            <div class="flex items-center border-b border-gray-300 py-3 focus-within:border-eco-green transition-colors">
+                                <i data-lucide="activity" class="w-5 h-5 text-gray-400 mr-3"></i>
+                                <select id="itin-pace" class="w-full outline-none bg-transparent text-gray-600 mobile-touch-target">
+                                    <option value="Relaxed">Relaxed</option>
+                                    <option value="Moderate">Moderate</option>
+                                    <option value="Active">Active</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center border-b border-gray-300 py-3 focus-within:border-eco-green transition-colors">
+                                <i data-lucide="heart" class="w-5 h-5 text-gray-400 mr-3"></i>
+                                <input type="text" id="itin-interests" placeholder="Interests" class="w-full outline-none bg-transparent mobile-touch-target">
+                            </div>
+                        </div>
+                        <button onclick="generateItinerary()" class="bg-eco-dark text-white px-6 py-3 uppercase tracking-widest text-xs font-bold hover:bg-eco-green transition-all flex items-center gap-2 w-full md:w-auto justify-center mobile-touch-target">
+                            <i data-lucide="wand-2" class="w-4 h-4"></i> <span>Generate Itinerary</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="itinerary-result" class="mt-8 pt-8 border-t border-gray-100 hidden">
+                    <h3 class="font-serif text-xl text-eco-dark mb-4 flex items-center gap-2"><i data-lucide="map-pin" class="w-5 h-5 text-eco-accent"></i> Your Custom Plan</h3>
+                    <div id="itinerary-content" class="prose prose-sm text-gray-600 max-w-none font-light"></div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white shadow-md rounded-sm overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=2021&q=80" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-serif text-xl text-eco-dark">Hidden Waterfall Hike</h3>
+                            <span class="text-eco-green font-bold text-sm">₹1,500</span>
+                        </div>
+                        <p class="text-gray-500 text-sm font-light mb-4">A moderate 3-hour trek leading to a secluded crystalline waterfall perfect for swimming.</p>
+                        <div class="flex items-center gap-4 text-xs text-gray-400 uppercase tracking-widest">
+                            <span><i data-lucide="clock" class="inline w-3 h-3"></i> 3 Hrs</span>
+                            <span><i data-lucide="bar-chart" class="inline w-3 h-3"></i> Moderate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main id="view-contact" class="hidden page-transition pt-20 bg-eco-light">
+        <div class="h-[50vh] bg-contact-hero bg-cover bg-center relative flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div class="relative z-10 text-center text-white px-4">
+                <h1 class="font-serif text-5xl md:text-7xl mb-6">Contact Us</h1>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 py-24">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div class="space-y-12">
+                    <h2 class="font-serif text-3xl text-eco-dark flex items-center gap-2"><i data-lucide="mail" class="w-6 h-6"></i> Get in Touch</h2>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-eco-green/10 p-3 rounded-full text-eco-green"><i data-lucide="map-pin" class="w-6 h-6"></i></div>
+                            <span>Kandivali West, Mumbai</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="bg-eco-green/10 p-3 rounded-full text-eco-green"><i data-lucide="phone" class="w-6 h-6"></i></div>
+                            <span>9137080957</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 md:p-12 shadow-xl border-t-4 border-eco-green">
+                    <form class="space-y-6">
+                        <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                            <i data-lucide="mail" class="w-5 h-5 text-gray-400 mr-3"></i>
+                            <input type="email" placeholder="Email Address" class="w-full outline-none mobile-touch-target">
+                        </div>
+                        <div class="flex items-start border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                            <i data-lucide="message-square" class="w-5 h-5 text-gray-400 mr-3 mt-1"></i>
+                            <textarea rows="4" placeholder="Message" class="w-full outline-none resize-none"></textarea>
+                        </div>
+                        <button type="button" class="bg-eco-dark text-white px-8 py-3 uppercase tracking-widest text-xs font-bold hover:bg-eco-green transition-colors w-full mobile-touch-target flex items-center justify-center gap-2">
+                            <i data-lucide="send" class="w-4 h-4"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main id="view-auth" class="hidden page-transition pt-20 bg-eco-light">
+        <div class="h-screen bg-auth-hero bg-cover bg-center relative flex items-center justify-center">
+            <div class="absolute inset-0 bg-eco-dark/60 backdrop-blur-sm"></div>
+            <div class="relative z-10 w-full max-w-md bg-white p-8 md:p-12 shadow-2xl rounded-sm mx-4">
+                <div class="text-center mb-8">
+                    <h2 class="font-serif text-3xl text-eco-dark italic flex items-center justify-center gap-2"><i data-lucide="user-check" class="w-6 h-6"></i> Welcome Back</h2>
+                </div>
+                <div class="flex justify-center mb-8 border-b border-gray-200">
+                    <button onclick="toggleAuthMode('login')" id="tab-login" class="pb-2 px-6 text-sm font-bold text-eco-green border-b-2 border-eco-green transition-all mobile-touch-target">Log In</button>
+                    <button onclick="toggleAuthMode('signup')" id="tab-signup" class="pb-2 px-6 text-sm font-bold text-gray-400 border-b-2 border-transparent hover:text-eco-green transition-all mobile-touch-target">Sign Up</button>
+                </div>
+                <form id="form-login" class="space-y-6 block">
+                    <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                        <i data-lucide="mail" class="w-5 h-5 text-gray-400 mr-3"></i>
+                        <input type="email" id="login-email" class="w-full outline-none mobile-touch-target" placeholder="guest@primestay.com">
+                    </div>
+                    <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                        <i data-lucide="lock" class="w-5 h-5 text-gray-400 mr-3"></i>
+                        <input type="password" id="login-password" class="w-full outline-none mobile-touch-target" placeholder="••••••••">
+                    </div>
+                    <button type="button" onclick="handleLogin()" class="w-full bg-eco-green text-white py-3 uppercase tracking-widest text-xs font-bold hover:bg-eco-dark transition-all mobile-touch-target flex items-center justify-center gap-2"><i data-lucide="log-in" class="w-4 h-4"></i> Log In</button>
+                </form>
+                <form id="form-signup" class="space-y-6 hidden">
+                    <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                        <i data-lucide="user" class="w-5 h-5 text-gray-400 mr-3"></i>
+                        <input type="text" id="signup-name" class="w-full outline-none mobile-touch-target" placeholder="John Doe">
+                    </div>
+                    <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                        <i data-lucide="mail" class="w-5 h-5 text-gray-400 mr-3"></i>
+                        <input type="email" id="signup-email" class="w-full outline-none mobile-touch-target" placeholder="guest@primestay.com">
+                    </div>
+                    <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                        <i data-lucide="lock" class="w-5 h-5 text-gray-400 mr-3"></i>
+                        <input type="password" id="signup-password" class="w-full outline-none mobile-touch-target" placeholder="Create a password">
+                    </div>
+                    <button type="button" onclick="handleSignup()" class="w-full bg-eco-green text-white py-3 uppercase tracking-widest text-xs font-bold hover:bg-eco-dark transition-all mobile-touch-target flex items-center justify-center gap-2"><i data-lucide="user-plus" class="w-4 h-4"></i> Create Account</button>
+                </form>
+                <p id="auth-message" class="text-center text-xs text-red-500 mt-4 h-4"></p>
+            </div>
+        </div>
+    </main>
+
+    <main id="view-booking-confirmation" class="hidden page-transition pt-32 pb-24 bg-eco-light min-h-screen">
+        <div class="container mx-auto px-6">
+            <div class="max-w-5xl mx-auto">
+                <button onclick="switchPage('home')" class="flex items-center text-gray-500 hover:text-eco-green mb-8 transition-colors">
+                    <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Back to Home
+                </button>
+                <div class="bg-white shadow-2xl rounded-sm overflow-hidden flex flex-col md:flex-row">
+                    <div class="md:w-1/3 bg-eco-dark text-white p-8 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+                        <h3 class="font-serif text-3xl mb-8 border-b border-white/10 pb-4 relative z-10 flex items-center gap-2"><i data-lucide="calendar" class="w-6 h-6"></i> Your Stay</h3>
+                        <div class="space-y-6 text-sm font-light relative z-10">
+                            <div>
+                                <span class="block text-eco-accent text-[10px] uppercase tracking-[0.2em] mb-1 font-bold">Dates</span>
+                                <p class="text-lg flex items-center gap-2"><i data-lucide="calendar" class="w-4 h-4 text-white/50"></i> <span id="confirm-check-in">--</span> <span class="text-white/30">to</span> <span id="confirm-check-out">--</span></p>
+                                <p class="text-xs text-white/50 mt-1" id="confirm-nights">-- Nights</p>
+                            </div>
+                            
+                            <div>
+                                <span class="block text-eco-accent text-[10px] uppercase tracking-[0.2em] mb-1 font-bold">Guests</span>
+                                <p class="text-lg flex items-center gap-2"><i data-lucide="users" class="w-4 h-4 text-white/50"></i> <span id="confirm-guests">--</span></p>
+                            </div>
+
+                            <div>
+                                <span class="block text-eco-accent text-[10px] uppercase tracking-[0.2em] mb-1 font-bold">Accommodation</span>
+                                <p class="text-lg flex items-center gap-2"><i data-lucide="home" class="w-4 h-4 text-white/50"></i> <span id="confirm-room">--</span></p>
+                            </div>
+
+                            <div class="pt-8 border-t border-white/10 mt-auto">
+                                <div class="flex justify-between items-end mb-2">
+                                    <span class="text-sm uppercase tracking-widest">Total Price</span>
+                                    <span class="text-3xl font-serif text-eco-accent" id="confirm-total">₹0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3 p-8 md:p-12">
+                        
+                        <div class="mb-10 border-b border-gray-200 pb-8">
+                            <h3 class="font-serif text-xl text-eco-dark mb-4 flex items-center gap-2">
+                                <i data-lucide="sparkles" class="w-5 h-5 text-eco-accent"></i> Enhance Your Stay
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                
+                                <label class="cursor-pointer border border-gray-200 p-4 rounded-sm hover:border-eco-green transition-all relative group select-none">
+                                    <input type="checkbox" class="addon-checkbox peer absolute opacity-0 w-0 h-0" value="Forest Spa Therapy" data-price="4500" onchange="updateTotalWithAddons()">
+                                    <div class="h-full flex flex-col peer-checked:bg-eco-green/5 ring-1 ring-transparent peer-checked:ring-eco-green transition-all rounded-sm p-1">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <span class="font-serif text-lg text-eco-dark">Spa Therapy</span>
+                                            <span class="text-xs font-bold text-eco-green bg-eco-green/10 px-2 py-1 rounded">+₹4,500</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 font-light leading-relaxed">60-min Deep Tissue Jungle Massage for one.</p>
+                                        <div class="mt-3 flex items-center gap-2 text-xs font-bold text-eco-green opacity-0 peer-checked:opacity-100 transition-opacity">
+                                            <i data-lucide="check-circle" class="w-3 h-3"></i> Added
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label class="cursor-pointer border border-gray-200 p-4 rounded-sm hover:border-eco-green transition-all relative group select-none">
+                                    <input type="checkbox" class="addon-checkbox peer absolute opacity-0 w-0 h-0" value="Candlelight Dinner" data-price="5000" onchange="updateTotalWithAddons()">
+                                    <div class="h-full flex flex-col peer-checked:bg-eco-green/5 ring-1 ring-transparent peer-checked:ring-eco-green transition-all rounded-sm p-1">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <span class="font-serif text-lg text-eco-dark">Private Dining</span>
+                                            <span class="text-xs font-bold text-eco-green bg-eco-green/10 px-2 py-1 rounded">+₹5,000</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 font-light leading-relaxed">3-course romantic dinner by the river.</p>
+                                        <div class="mt-3 flex items-center gap-2 text-xs font-bold text-eco-green opacity-0 peer-checked:opacity-100 transition-opacity">
+                                            <i data-lucide="check-circle" class="w-3 h-3"></i> Added
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label class="cursor-pointer border border-gray-200 p-4 rounded-sm hover:border-eco-green transition-all relative group select-none">
+                                    <input type="checkbox" class="addon-checkbox peer absolute opacity-0 w-0 h-0" value="Waterfall Trek" data-price="1500" onchange="updateTotalWithAddons()">
+                                    <div class="h-full flex flex-col peer-checked:bg-eco-green/5 ring-1 ring-transparent peer-checked:ring-eco-green transition-all rounded-sm p-1">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <span class="font-serif text-lg text-eco-dark">Guided Trek</span>
+                                            <span class="text-xs font-bold text-eco-green bg-eco-green/10 px-2 py-1 rounded">+₹1,500</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 font-light leading-relaxed">Exclusive guided hike to the hidden waterfall.</p>
+                                        <div class="mt-3 flex items-center gap-2 text-xs font-bold text-eco-green opacity-0 peer-checked:opacity-100 transition-opacity">
+                                            <i data-lucide="check-circle" class="w-3 h-3"></i> Added
+                                        </div>
+                                    </div>
+                                </label>
+
+                                 <label class="cursor-pointer border border-gray-200 p-4 rounded-sm hover:border-eco-green transition-all relative group select-none">
+                                    <input type="checkbox" class="addon-checkbox peer absolute opacity-0 w-0 h-0" value="Airport Pickup" data-price="2500" onchange="updateTotalWithAddons()">
+                                    <div class="h-full flex flex-col peer-checked:bg-eco-green/5 ring-1 ring-transparent peer-checked:ring-eco-green transition-all rounded-sm p-1">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <span class="font-serif text-lg text-eco-dark">Airport Taxi</span>
+                                            <span class="text-xs font-bold text-eco-green bg-eco-green/10 px-2 py-1 rounded">+₹2,500</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500 font-light leading-relaxed">Luxury eco-van pickup from Mumbai Airport.</p>
+                                        <div class="mt-3 flex items-center gap-2 text-xs font-bold text-eco-green opacity-0 peer-checked:opacity-100 transition-opacity">
+                                            <i data-lucide="check-circle" class="w-3 h-3"></i> Added
+                                        </div>
+                                    </div>
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <form id="payment-form" class="space-y-6">
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                                    <i data-lucide="user" class="w-5 h-5 text-gray-400 mr-3"></i>
+                                    <input type="text" id="pay-fname" class="w-full outline-none mobile-touch-target" placeholder="First Name">
+                                </div>
+                                <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                                    <i data-lucide="user" class="w-5 h-5 text-gray-400 mr-3"></i>
+                                    <input type="text" id="pay-lname" class="w-full outline-none mobile-touch-target" placeholder="Last Name">
+                                </div>
+                            </div>
+                            <div class="space-y-2 pt-4">
+                                <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                                    <i data-lucide="credit-card" class="w-5 h-5 text-gray-400 mr-3"></i>
+                                    <input type="text" placeholder="0000 0000 0000 0000" class="w-full bg-transparent outline-none tracking-widest mobile-touch-target">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                                    <i data-lucide="calendar" class="w-5 h-5 text-gray-400 mr-3"></i>
+                                    <input type="text" placeholder="MM / YY" class="w-full outline-none text-center mobile-touch-target">
+                                </div>
+                                <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                                    <i data-lucide="lock" class="w-5 h-5 text-gray-400 mr-3"></i>
+                                    <input type="text" placeholder="123" class="w-full outline-none text-center mobile-touch-target">
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 pt-4">
+                                <input type="checkbox" id="terms" class="accent-eco-green w-4 h-4 cursor-pointer">
+                                <label for="terms" class="text-xs text-gray-500">I agree to the Terms.</label>
+                            </div>
+                            <button type="button" onclick="finalizeBooking()" class="w-full bg-eco-green text-white py-4 uppercase tracking-widest text-sm font-bold hover:bg-eco-dark transition-all shadow-lg flex justify-center items-center gap-2 mt-8 group mobile-touch-target">
+                                <span>Confirm Reservation</span>
+                                <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main id="view-history" class="hidden page-transition pt-32 pb-24 bg-eco-light min-h-screen">
+        <div class="container mx-auto px-6">
+            <div class="max-w-5xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                    <div>
+                        <button onclick="switchPage('home')" class="flex items-center text-gray-500 hover:text-eco-green mb-6 transition-colors">
+                            <i data-lucide="arrow-left" class="w-4 h-4 mr-2"></i> Back to Home
+                        </button>
+                        <h2 class="font-serif text-4xl text-eco-dark flex items-center gap-2"><i data-lucide="history" class="w-8 h-8 text-eco-green"></i> My Reservations</h2>
+                    </div>
+                    <button onclick="logOut()" class="text-red-500 hover:text-red-700 text-sm uppercase tracking-widest font-bold flex items-center gap-2 mt-4 md:mt-0 mobile-touch-target"><i data-lucide="log-out" class="w-4 h-4"></i> Sign Out</button>
+                </div>
+                <div id="booking-history-container" class="space-y-6"></div>
+                <div id="no-bookings-msg" class="hidden text-center py-20 bg-white shadow-sm rounded-sm">
+                    <div class="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4 text-gray-400">
+                        <i data-lucide="calendar-x" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl text-eco-dark mb-2">No Bookings Found</h3>
+                    <button onclick="switchPage('home'); document.getElementById('booking').scrollIntoView();" class="bg-eco-green text-white px-6 py-2 uppercase tracking-widest text-xs font-bold hover:bg-eco-dark transition-colors mobile-touch-target mt-4">Plan a Trip</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main id="view-feedback" class="hidden page-transition pt-20 bg-eco-light">
+        <div class="h-[50vh] bg-contact-hero bg-cover bg-center relative flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div class="relative z-10 text-center text-white px-4">
+                <h1 class="font-serif text-5xl md:text-7xl mb-6">Guest Feedback</h1>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 py-24 max-w-3xl">
+            <div class="bg-white p-8 md:p-12 shadow-xl border-t-4 border-eco-green rounded-sm">
+                <form id="feedback-form" onsubmit="submitFeedback(event)" class="space-y-8">
+                    <div class="flex flex-col items-center gap-4">
+                        <div class="flex gap-2" id="star-container">
+                            <button type="button" onclick="setRating(1)" class="star-btn text-gray-300 hover:text-yellow-400 transition-colors p-2"><i data-lucide="star" class="w-8 h-8 fill-current"></i></button>
+                            <button type="button" onclick="setRating(2)" class="star-btn text-gray-300 hover:text-yellow-400 transition-colors p-2"><i data-lucide="star" class="w-8 h-8 fill-current"></i></button>
+                            <button type="button" onclick="setRating(3)" class="star-btn text-gray-300 hover:text-yellow-400 transition-colors p-2"><i data-lucide="star" class="w-8 h-8 fill-current"></i></button>
+                            <button type="button" onclick="setRating(4)" class="star-btn text-gray-300 hover:text-yellow-400 transition-colors p-2"><i data-lucide="star" class="w-8 h-8 fill-current"></i></button>
+                            <button type="button" onclick="setRating(5)" class="star-btn text-gray-300 hover:text-yellow-400 transition-colors p-2"><i data-lucide="star" class="w-8 h-8 fill-current"></i></button>
+                        </div>
+                        <input type="hidden" id="feedback-rating" value="0">
+                        <p id="rating-text" class="text-eco-green font-serif italic h-6"></p>
+                    </div>
+                    <div class="flex items-center border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                        <i data-lucide="user" class="w-5 h-5 text-gray-400 mr-3"></i>
+                        <input type="text" id="feedback-name" class="w-full outline-none bg-transparent transition-colors mobile-touch-target" placeholder="Your Name">
+                    </div>
+                    <div class="flex items-start border-b border-gray-300 py-2 focus-within:border-eco-green transition-colors">
+                        <i data-lucide="message-square" class="w-5 h-5 text-gray-400 mr-3 mt-1"></i>
+                        <textarea id="feedback-comment" rows="4" class="w-full outline-none bg-transparent resize-none" placeholder="Share your experience..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-eco-dark text-white py-4 uppercase tracking-widest text-xs font-bold hover:bg-eco-green transition-all shadow-lg mobile-touch-target flex items-center justify-center gap-2">
+                        <i data-lucide="send" class="w-4 h-4"></i> Submit Feedback
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-[#15231b] text-white/80 py-16 px-6 border-t border-white/5 mt-auto">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="space-y-6">
+                <h3 class="font-serif text-3xl italic text-white flex items-center gap-2"><i data-lucide="palmtree" class="w-6 h-6"></i> Prime Stay.</h3>
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-eco-accent transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="hover:text-eco-accent transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white text-sm font-bold uppercase tracking-widest mb-6">Explore</h4>
+                <ul class="space-y-4 text-sm font-light">
+                    <li><a href="#philosophy" onclick="switchPage('home')" class="hover:text-eco-accent transition-colors mobile-touch-target block">Our Philosophy</a></li>
+                    <li><a href="#" onclick="switchPage('rooms'); return false;" class="hover:text-eco-accent transition-colors mobile-touch-target block">Accommodations</a></li>
+                    <li><a href="#wellness" onclick="switchPage('home')" class="hover:text-eco-accent transition-colors mobile-touch-target block">Wellness & Spa</a></li>
+                    <li><a href="#" onclick="switchPage('contact'); return false;" class="hover:text-eco-accent transition-colors mobile-touch-target block">Contact</a></li>
+                    <li><a href="#" onclick="switchPage('feedback'); return false;" class="hover:text-eco-accent transition-colors mobile-touch-target block">Feedback</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white text-sm font-bold uppercase tracking-widest mb-6">Contact</h4>
+                <ul class="space-y-4 text-sm font-light">
+                    <li class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-eco-accent"></i> Kandivali West, Mumbai</li>
+                    <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-eco-accent"></i> 9137080957</li>
+                    <li class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4 text-eco-accent"></i> avdheshprajapati92@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <div id="custom-modal" class="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white p-8 rounded-sm shadow-2xl max-w-md text-center transform scale-95 transition-transform duration-300 w-11/12 md:w-auto" id="modal-content">
+            <div id="modal-icon-container" class="mx-auto w-16 h-16 bg-eco-light rounded-full flex items-center justify-center mb-4 text-eco-green"></div>
+            <h3 class="font-serif text-2xl text-eco-dark mb-2" id="modal-title"></h3>
+            <p class="text-gray-600 mb-6 font-light" id="modal-message"></p>
+            <div id="modal-actions" class="flex justify-center gap-4">
+                <button onclick="closeModal()" class="bg-gray-200 text-gray-600 px-6 py-2 uppercase tracking-widest text-xs font-bold hover:bg-gray-300 transition-colors mobile-touch-target">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="ai-widget" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        <div id="chat-window" class="bg-white rounded-lg shadow-2xl w-80 md:w-96 mb-4 hidden overflow-hidden border border-eco-green/20 transition-all duration-300 transform origin-bottom-right scale-90 opacity-0">
+            <div class="bg-eco-dark text-white p-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                    <div>
+                        <h3 class="font-serif italic text-lg leading-none">Eco-Concierge</h3>
+                        <span class="text-[10px] uppercase tracking-widest opacity-70">Powered by Gemini</span>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="text-white/70 hover:text-white p-2"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            
+            <div id="chat-messages" class="h-80 overflow-y-auto p-4 bg-eco-light/30 space-y-4 font-sans text-sm">
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-full bg-eco-green flex items-center justify-center text-white shrink-0">
+                        <i data-lucide="bot" class="w-4 h-4"></i>
+                    </div>
+                    <div class="bg-white p-3 rounded-tr-xl rounded-br-xl rounded-bl-xl shadow-sm text-gray-700 border border-gray-100">
+                        <p>Welcome to Prime Stay. How may I assist you today? ✨</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-3 bg-white border-t border-gray-100">
+                <form onsubmit="handleChatSubmit(event)" class="relative">
+                    <input type="text" id="user-input" placeholder="Ask about your stay..." class="w-full pl-4 pr-12 py-3 bg-gray-50 rounded-full border border-gray-200 focus:outline-none focus:border-eco-green focus:ring-1 focus:ring-eco-green text-sm mobile-touch-target">
+                    <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-eco-green text-white rounded-full hover:bg-eco-dark transition-colors shadow-md">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <button onclick="toggleChat()" class="group flex items-center gap-3 bg-eco-dark text-white pl-5 pr-2 py-2 rounded-full shadow-lg hover:bg-eco-green transition-all duration-300 border border-white/10 mobile-touch-target">
+            <span class="font-serif italic text-lg group-hover:pr-2 transition-all">Ask Concierge</span>
+            <div class="bg-eco-accent p-3 rounded-full text-eco-dark group-hover:rotate-12 transition-transform">
+                <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </div>
+        </button>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // -----------------------
+        // NAVIGATION & MOBILE MENU
+        // -----------------------
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+
+        function toggleMobileMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden'; // Lock scroll
+                menuBtn.innerHTML = '<i data-lucide="x" class="w-8 h-8"></i>';
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+                document.body.style.overflow = 'auto'; // Unlock scroll
+                menuBtn.innerHTML = '<i data-lucide="menu" class="w-8 h-8"></i>';
+            }
+            lucide.createIcons();
+        }
+
+        menuBtn.addEventListener('click', toggleMobileMenu);
+
+        // Add auto-close to all mobile links
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMenuOpen) toggleMobileMenu();
+            });
+        });
+
+        function switchPage(pageName) {
+            // Close menu if open (double safety)
+            if (isMenuOpen) toggleMobileMenu();
+
+            const views = ['home', 'rooms', 'contact', 'auth', 'booking-confirmation', 'history', 'menu', 'spa', 'adventure', 'feedback'];
+            views.forEach(v => {
+                const el = document.getElementById(`view-${v}`);
+                if(el) el.classList.add('hidden');
+            });
+            const target = document.getElementById(`view-${pageName}`);
+            if(target) target.classList.remove('hidden');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Special initialization
+            if (pageName === 'history') renderHistory();
+            if (pageName === 'feedback') {
+                const currentUser = JSON.parse(localStorage.getItem('prime_stay_current_user'));
+                if (currentUser) {
+                    document.getElementById('feedback-name').value = currentUser.name;
+                }
+            }
+
+            setTimeout(() => {
+                var reveals = document.querySelectorAll(".reveal");
+                for (var i = 0; i < reveals.length; i++) {
+                    reveals[i].classList.add("active");
+                }
+                lucide.createIcons();
+            }, 100);
+        }
+
+        // -----------------------
+        // AUTHENTICATION
+        // -----------------------
+        function handleAuthButtonClick() {
+            const currentUser = JSON.parse(localStorage.getItem('prime_stay_current_user'));
+            if (currentUser) {
+                switchPage('history');
+            } else {
+                switchPage('auth');
+            }
+        }
+
+        function toggleAuthMode(mode) {
+            const loginForm = document.getElementById('form-login');
+            const signupForm = document.getElementById('form-signup');
+            const tabLogin = document.getElementById('tab-login');
+            const tabSignup = document.getElementById('tab-signup');
+            const msg = document.getElementById('auth-message');
+
+            msg.innerText = "";
+
+            if (mode === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                tabLogin.classList.add('text-eco-green', 'border-eco-green');
+                tabLogin.classList.remove('text-gray-400', 'border-transparent');
+                tabSignup.classList.add('text-gray-400', 'border-transparent');
+                tabSignup.classList.remove('text-eco-green', 'border-eco-green');
+            } else {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                tabSignup.classList.add('text-eco-green', 'border-eco-green');
+                tabSignup.classList.remove('text-gray-400', 'border-transparent');
+                tabLogin.classList.add('text-gray-400', 'border-transparent');
+                tabLogin.classList.remove('text-eco-green', 'border-eco-green');
+            }
+        }
+
+        function handleSignup() {
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const msg = document.getElementById('auth-message');
+
+            if (!name || !email || !password) {
+                msg.innerText = "Please fill in all fields.";
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('prime_stay_users') || "[]");
+            const existingUser = users.find(u => u.email === email);
+
+            if (existingUser) {
+                msg.innerText = "Email already registered. Please log in.";
+                return;
+            }
+
+            const newUser = { name, email, password };
+            users.push(newUser);
+            localStorage.setItem('prime_stay_users', JSON.stringify(users));
+            localStorage.setItem('prime_stay_current_user', JSON.stringify(newUser));
+            updateAuthUI();
+            showModal('Welcome', `Hello ${name}, your account has been created successfully.`, 'user-check');
+            switchPage('home');
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const msg = document.getElementById('auth-message');
+
+            const users = JSON.parse(localStorage.getItem('prime_stay_users') || "[]");
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                localStorage.setItem('prime_stay_current_user', JSON.stringify(user));
+                updateAuthUI();
+                showModal('Welcome Back', `It's good to see you again, ${user.name}.`, 'user-check');
+                switchPage('home');
+            } else {
+                msg.innerText = "Invalid email or password.";
+            }
+        }
+
+        function logOut() {
+            localStorage.removeItem('prime_stay_current_user');
+            updateAuthUI();
+            switchPage('home');
+            showModal('Logged Out', 'You have been successfully signed out.', 'log-out');
+        }
+
+        function updateAuthUI() {
+            const currentUser = JSON.parse(localStorage.getItem('prime_stay_current_user'));
+            const text = document.getElementById('nav-auth-text');
+            if (text) {
+                if (currentUser) {
+                    text.innerText = currentUser.name.split(' ')[0];
+                    const fnameInput = document.getElementById('pay-fname');
+                    const lnameInput = document.getElementById('pay-lname');
+                    if(fnameInput && lnameInput) {
+                        fnameInput.value = currentUser.name.split(' ')[0];
+                        lnameInput.value = currentUser.name.split(' ').slice(1).join(' ');
+                    }
+                } else {
+                    text.innerText = "Log In";
+                }
+            }
+        }
+
+        // -----------------------
+        // BOOKING LOGIC
+        // -----------------------
+        const roomPrices = {
+            'Canopy Villa': 62000,
+            'Riverfront Bungalow': 48000,
+            'Forest Cabin': 35000
+        };
+        let tempBookingData = null;
+        let currentBasePrice = 0; // NEW: Track base price for calculations
+
+        function checkAvailability() {
+            const currentUser = JSON.parse(localStorage.getItem('prime_stay_current_user'));
+            
+            if (!currentUser) {
+                showModal(
+                    'Login Required',
+                    'To check availability, please log in first.',
+                    'lock',
+                    false 
+                );
+                const actions = document.getElementById('modal-actions');
+                actions.innerHTML = `
+                    <button onclick="closeModal()" class="text-gray-500 hover:text-gray-800 px-4 py-2 text-xs uppercase tracking-widest font-bold">Cancel</button>
+                    <button onclick="closeModal(); switchPage('auth');" class="bg-eco-green text-white px-6 py-2 uppercase tracking-widest text-xs font-bold hover:bg-eco-dark shadow-lg">Log In</button>
+                `;
+                return;
+            }
+
+            const checkIn = document.getElementById('check-in').value;
+            const checkOut = document.getElementById('check-out').value;
+            const guests = document.getElementById('guests').value;
+            const roomType = document.getElementById('room-type').value;
+
+            if (!checkIn || !checkOut) {
+                showModal('Dates Required', 'Please select check-in and check-out dates.', 'alert-circle');
+                return;
+            }
+
+            const date1 = new Date(checkIn);
+            const date2 = new Date(checkOut);
+            const timeDiff = date2.getTime() - date1.getTime();
+            const nights = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+            if (nights <= 0) {
+                showModal('Invalid Dates', 'Check-out date must be after check-in date.', 'alert-circle');
+                return;
+            }
+
+            const pricePerNight = roomPrices[roomType] || 0;
+            const totalPrice = pricePerNight * nights;
+
+            tempBookingData = { checkIn, checkOut, nights, guests, roomType, totalPrice };
+
+            showModal(
+                'Availability Confirmed', 
+                `<strong>${roomType}</strong> is available for <strong>${nights} nights</strong>.<br><br>Total: <span class="text-eco-green font-bold text-lg">₹${totalPrice.toLocaleString('en-IN')}</span>`,
+                'check',
+                true 
+            );
+        }
+
+        // NEW: Function to update total based on checked add-ons
+        function updateTotalWithAddons() {
+            let addonsTotal = 0;
+            const checkboxes = document.querySelectorAll('.addon-checkbox:checked');
+            
+            checkboxes.forEach(cb => {
+                addonsTotal += parseInt(cb.getAttribute('data-price'));
+            });
+
+            // Update total display
+            const grandTotal = currentBasePrice + addonsTotal;
+            const totalEl = document.getElementById('confirm-total');
+            
+            // Add a small animation effect on price change
+            totalEl.classList.add('opacity-50');
+            setTimeout(() => {
+                totalEl.innerText = `₹${grandTotal.toLocaleString('en-IN')}`;
+                totalEl.classList.remove('opacity-50');
+            }, 200);
+        }
+
+        function proceedToBooking() {
+            closeModal();
+            if (!tempBookingData) return;
+
+            // NEW: Set base price reference and reset addons
+            currentBasePrice = tempBookingData.totalPrice; 
+            document.querySelectorAll('.addon-checkbox').forEach(cb => cb.checked = false);
+
+            document.getElementById('confirm-check-in').innerText = tempBookingData.checkIn;
+            document.getElementById('confirm-check-out').innerText = tempBookingData.checkOut;
+            document.getElementById('confirm-nights').innerText = `${tempBookingData.nights} Nights`;
+            document.getElementById('confirm-guests').innerText = tempBookingData.guests;
+            document.getElementById('confirm-room').innerText = tempBookingData.roomType;
+            
+            // NEW: Initial update
+            updateTotalWithAddons();
+
+            switchPage('booking-confirmation');
+        }
+
+        function finalizeBooking() {
+            const fname = document.getElementById('pay-fname').value;
+            const lname = document.getElementById('pay-lname').value;
+            const terms = document.getElementById('terms').checked;
+
+            if (!fname || !lname) { alert("Please enter your name."); return; }
+            if (!terms) { alert("Please agree to the Terms."); return; }
+
+            // NEW: Capture selected add-ons
+            const selectedAddons = [];
+            let addonsCost = 0;
+            document.querySelectorAll('.addon-checkbox:checked').forEach(cb => {
+                selectedAddons.push(cb.value);
+                addonsCost += parseInt(cb.getAttribute('data-price'));
+            });
+
+            const currentUser = JSON.parse(localStorage.getItem('prime_stay_current_user'));
+            const finalBooking = {
+                id: Date.now(),
+                dateBooked: new Date().toLocaleDateString(),
+                user: currentUser ? { name: currentUser.name, email: currentUser.email } : { name: `${fname} ${lname}`, email: "Guest" },
+                ...tempBookingData,
+                addons: selectedAddons, // Save list
+                totalPrice: tempBookingData.totalPrice + addonsCost, // Save final price
+                status: 'Confirmed'
+            };
+
+            const bookings = JSON.parse(localStorage.getItem('prime_stay_bookings') || "[]");
+            bookings.push(finalBooking);
+            localStorage.setItem('prime_stay_bookings', JSON.stringify(bookings));
+
+            showModal('Reservation Confirmed', `Ref ID: #${finalBooking.id}`, 'star');
+            switchPage(currentUser ? 'history' : 'home');
+            tempBookingData = null;
+            document.getElementById('payment-form').reset();
+        }
+
+        function renderHistory() {
+            const currentUser = JSON.parse(localStorage.getItem('prime_stay_current_user'));
+            const container = document.getElementById('booking-history-container');
+            const noMsg = document.getElementById('no-bookings-msg');
+            container.innerHTML = ''; 
+
+            if (!currentUser) { switchPage('auth'); return; }
+
+            const allBookings = JSON.parse(localStorage.getItem('prime_stay_bookings') || "[]");
+            const userBookings = allBookings.filter(b => b.user && b.user.email === currentUser.email);
+
+            if (userBookings.length === 0) {
+                noMsg.classList.remove('hidden');
+            } else {
+                noMsg.classList.add('hidden');
+                userBookings.sort((a, b) => b.id - a.id).forEach(booking => {
+                    // NEW: Helper to render add-ons text
+                    const addonsHtml = booking.addons && booking.addons.length > 0 
+                        ? `<p class="text-xs text-eco-green font-bold mb-1 mt-1"><i data-lucide="plus" class="w-3 h-3 inline"></i> ${booking.addons.join(", ")}</p>` 
+                        : '';
+
+                    const el = document.createElement('div');
+                    el.className = "bg-white border border-gray-100 shadow-sm rounded-sm p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6";
+                    el.innerHTML = `
+                        <div>
+                            <h4 class="font-serif text-xl text-eco-dark">${booking.roomType}</h4>
+                            ${addonsHtml}
+                            <p class="text-sm text-gray-500">Ref: #${booking.id} | ₹${booking.totalPrice.toLocaleString('en-IN')}</p>
+                            <p class="text-sm text-gray-600">${booking.checkIn} to ${booking.checkOut}</p>
+                        </div>
+                        <button onclick="cancelBooking(${booking.id})" class="text-red-400 text-xs font-bold uppercase tracking-widest flex items-center gap-1"><i data-lucide="trash-2" class="w-3 h-3"></i> Cancel</button>
+                    `;
+                    container.appendChild(el);
+                });
+            }
+            lucide.createIcons();
+        }
+
+        function cancelBooking(id) {
+            if(!confirm("Cancel this reservation?")) return;
+            let allBookings = JSON.parse(localStorage.getItem('prime_stay_bookings') || "[]");
+            allBookings = allBookings.filter(b => b.id !== id);
+            localStorage.setItem('prime_stay_bookings', JSON.stringify(allBookings));
+            renderHistory();
+        }
+
+        // -----------------------
+        // AI FEATURES
+        // -----------------------
+        async function generateItinerary() {
+            const days = document.getElementById('itin-days').value;
+            const pace = document.getElementById('itin-pace').value;
+            const interests = document.getElementById('itin-interests').value;
+            const resultDiv = document.getElementById('itinerary-result');
+            const contentDiv = document.getElementById('itinerary-content');
+
+            if (!days || !interests) { alert("Please fill in details!"); return; }
+
+            resultDiv.classList.remove('hidden');
+            contentDiv.innerHTML = '<span class="text-eco-green">Planning...</span>';
+            const prompt = `Plan a ${days}-day ${pace} itinerary for Prime Stay Mumbai. Interests: ${interests}.`;
+            try {
+                const response = await callGemini(prompt, 'planner');
+                contentDiv.innerHTML = response;
+            } catch (error) {
+                contentDiv.innerHTML = "Service unavailable.";
+            }
+        }
+
+        async function getFlavorMatch() {
+            const flavor = document.getElementById('flavor-input').value;
+            const resultDiv = document.getElementById('chef-recommendation');
+            if (!flavor) { alert("Enter a mood!"); return; }
+            resultDiv.classList.remove('hidden');
+            resultDiv.innerHTML = '<span class="animate-pulse">Consulting Chef...</span>';
+            try {
+                const response = await callGemini(`I want "${flavor}" food/drink pairing.`, 'chef');
+                resultDiv.innerHTML = response;
+            } catch (error) {
+                resultDiv.innerHTML = "Kitchen is busy.";
+            }
+        }
+
+        // Chat UI
+        const chatWindow = document.getElementById('chat-window');
+        const messagesContainer = document.getElementById('chat-messages');
+        const userInput = document.getElementById('user-input');
+        let isChatOpen = false;
+
+        function toggleChat() {
+            isChatOpen = !isChatOpen;
+            if (isChatOpen) {
+                chatWindow.classList.remove('hidden');
+                setTimeout(() => { chatWindow.classList.remove('scale-90', 'opacity-0'); chatWindow.classList.add('scale-100', 'opacity-100'); }, 10);
+            } else {
+                chatWindow.classList.remove('scale-100', 'opacity-100');
+                chatWindow.classList.add('scale-90', 'opacity-0');
+                setTimeout(() => { chatWindow.classList.add('hidden'); }, 300);
+            }
+        }
+
+        async function handleChatSubmit(e) {
+            e.preventDefault();
+            const message = userInput.value.trim();
+            if (!message) return;
+            addMessage(message, 'user');
+            userInput.value = '';
+            const loadingId = addLoadingIndicator();
+            try {
+                const response = await callGemini(message, 'concierge');
+                removeMessage(loadingId);
+                addMessage(response, 'bot');
+            } catch (error) {
+                removeMessage(loadingId);
+                addMessage("I'm having trouble connecting.", 'bot');
+            }
+        }
+
+        function addMessage(text, sender) {
+            const div = document.createElement('div');
+            div.className = `flex items-start gap-3 ${sender === 'user' ? 'flex-row-reverse' : ''}`;
+            const bubbleClass = sender === 'bot' ? 'bg-white text-gray-700 border border-gray-100' : 'bg-eco-green text-white';
+            div.innerHTML = `<div class="${bubbleClass} p-3 rounded-lg shadow-sm text-sm max-w-[80%]">${text}</div>`;
+            messagesContainer.appendChild(div);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function addLoadingIndicator() {
+            const id = 'loading-' + Date.now();
+            const div = document.createElement('div');
+            div.id = id;
+            div.className = 'flex items-start gap-2 p-2';
+            div.innerHTML = '<div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div><div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay:0.2s"></div>';
+            messagesContainer.appendChild(div);
+            return id;
+        }
+
+        function removeMessage(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        // Shared Gemini API Call
+        async function callGemini(userQuery, persona) {
+            const apiKey = "AIzaSyD6GTerN5LgPjAt3BvXe5xzlUG2TNnS_wY"; // API Key
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            let sysPrompt = "You are a helpful assistant for Prime Stay Eco Lodge in Mumbai.";
+            if (persona === 'chef') sysPrompt += " Recommend a dish & drink pairing.";
+            if (persona === 'planner') sysPrompt += " Create a day-by-day itinerary.";
+            
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: sysPrompt }] }
+            };
+            try {
+                const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (!response.ok) throw new Error('API Error');
+                const data = await response.json();
+                return data.candidates[0].content.parts[0].text;
+            } catch (e) { throw e; }
+        }
+
+        // UI Helpers
+        function showModal(title, message, iconName, showBookBtn = false) {
+            const modal = document.getElementById('custom-modal');
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-message').innerHTML = message;
+            document.getElementById('modal-icon-container').innerHTML = `<i data-lucide="${iconName}" class="w-8 h-8"></i>`;
+            
+            const actions = document.getElementById('modal-actions');
+            if (showBookBtn) {
+                actions.innerHTML = `<button onclick="closeModal()" class="text-gray-500 px-4 py-2 font-bold">Cancel</button><button onclick="proceedToBooking()" class="bg-eco-green text-white px-6 py-2 font-bold hover:bg-eco-dark">Book Now</button>`;
+            } else {
+                actions.innerHTML = `<button onclick="closeModal()" class="bg-eco-dark text-white px-6 py-2 font-bold hover:bg-eco-green">Close</button>`;
+            }
+            modal.classList.remove('hidden');
+            setTimeout(() => { modal.classList.remove('opacity-0'); document.getElementById('modal-content').classList.add('scale-100'); }, 10);
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('custom-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        }
+
+        // Feedback Logic
+        let currentRating = 0;
+        function setRating(r) {
+            currentRating = r;
+            document.getElementById('feedback-rating').value = r;
+            document.querySelectorAll('.star-btn').forEach((btn, i) => {
+                if (i < r) { btn.classList.add('text-yellow-400'); btn.classList.remove('text-gray-300'); }
+                else { btn.classList.remove('text-yellow-400'); btn.classList.add('text-gray-300'); }
+            });
+            document.getElementById('rating-text').innerText = ["Poor", "Fair", "Good", "Very Good", "Excellent"][r - 1];
+        }
+
+        function submitFeedback(e) {
+            e.preventDefault();
+            if (currentRating === 0) { alert("Rate us!"); return; }
+            showModal('Thank You!', 'Feedback received.', 'heart');
+            document.getElementById('feedback-form').reset();
+            setRating(0);
+            switchPage('home');
+        }
+
+        // Init
+        updateAuthUI();
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) { navbar.classList.add('bg-eco-dark/95', 'shadow-lg', 'py-4'); navbar.classList.remove('py-6', 'bg-transparent'); }
+            else { navbar.classList.remove('bg-eco-dark/95', 'shadow-lg', 'py-4'); navbar.classList.add('py-6'); }
+            
+            document.querySelectorAll(".reveal").forEach(el => {
+                if (el.getBoundingClientRect().top < window.innerHeight - 150) el.classList.add("active");
+            });
+        });
+    </script>
+</body>
+</html>
